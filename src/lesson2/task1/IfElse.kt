@@ -77,6 +77,8 @@ fun ageDescription(age: Int): String {
         0 -> "$age лет"
         1 -> "$age год"
         2 -> "$age года"
+        3 -> "$age года"
+        4 -> "$age года"
         else -> ""
     }
 
