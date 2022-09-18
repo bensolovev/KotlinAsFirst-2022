@@ -2,10 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.sqrt
-import kotlin.math.pow
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -77,10 +74,10 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var c = 1
-    var d = n
+    var d = abs(n)
     while (d >= 10) {
         c += 1
-        d /=10
+        d /= 10
     }
     return c
 }
@@ -110,7 +107,7 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var d = n
-    for (i in 2..n) {
+    for (i in 2..n / 2) {
         if (n % i == 0 && i < d) d = i
     }
     return d
@@ -155,7 +152,7 @@ fun collatzSteps(x: Int): Int = TODO()
  */
 fun lcm(m: Int, n: Int): Int {
     var result = 0
-    for (i in 2..m * n) {
+    for (i in 1..m * n) {
         if (i % m == 0 && i % n == 0) {
             result = i
             break
@@ -292,8 +289,8 @@ fun squareSequenceDigit(n: Int): Int {
         }
         row += (c * c).toLong()
         c++
-        if (row == 149162536496481) {
-            row = 81
+        if (row > 100000000000000) {
+            row %= 100
             num = n - 14
         }
     }
