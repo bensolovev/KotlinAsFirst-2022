@@ -2,7 +2,10 @@
 
 package lesson3.task1
 
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -72,7 +75,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var c = 1
+    var d = n
+    while (d >= 10) {
+        c += 1
+        d /=10
+    }
+    return c
+}
 
 /**
  * Простая (2 балла)
@@ -80,21 +91,43 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var result = 1
+    var fn1 = 0
+    var fn2 = 1
+    for (i in 2..n) {
+        result = fn1 + fn2
+        fn1 = fn2
+        fn2 = result
+    }
+    return result
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var d = n
+    for (i in 2..n) {
+        if (n % i == 0 && i < d) d = i
+    }
+    return d
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var d = 0
+    for (i in 1..n / 2) {
+        if (n % i == 0) d = i
+    }
+    return d
+}
 
 /**
  * Простая (2 балла)
@@ -120,7 +153,16 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var result = 0
+    for (i in 2..m * n) {
+        if (i % m == 0 && i % n == 0) {
+            result = i
+            break
+        }
+    }
+    return result
+}
 
 /**
  * Средняя (3 балла)
@@ -129,7 +171,13 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var c = 0
+    for (i in 2..m * n) {
+        if (m % i == 0 && n % i == 0) c++
+    }
+    return c == 0
+}
 
 /**
  * Средняя (3 балла)
@@ -138,7 +186,16 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    if (n < 10) return n
+    var m = n
+    var result = 0
+    while (m > 0) {
+        result = result * 10 + m % 10
+        m /= 10
+    }
+    return result
+}
 
 /**
  * Средняя (3 балла)
@@ -159,7 +216,35 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var ch1 = 0
+    var ch2 = 0
+    var ch3 = 0
+    var ch4 = 0
+    var ch5 = 0
+    var ch6 = 0
+    var ch7 = 0
+    var ch8 = 0
+    var ch9 = 0
+    var ch0 = 0
+    var numb = n
+    while (numb > 0) {
+        when (numb % 10) {
+            1 -> ch1 = 1
+            2 -> ch2 = 1
+            3 -> ch3 = 1
+            4 -> ch4 = 1
+            5 -> ch5 = 1
+            6 -> ch6 = 1
+            7 -> ch7 = 1
+            8 -> ch8 = 1
+            9 -> ch9 = 1
+            0 -> ch0 = 1
+        }
+        numb /= 10
+    }
+    return ch1 + ch2 + ch3 + ch4 + ch5 + ch6 + ch7 + ch8 + ch9 + ch0 > 1
+}
 
 /**
  * Средняя (4 балла)
@@ -192,7 +277,25 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var row = 0.0
+    var result = 0
+    val d = 10.0
+    var c = 1.0
+    var r = 1.0
+    while (row < d.pow(n - 1)) {
+        if ((c * c) in d.pow(r - 1)..d.pow(r)) row *= (d.pow(r))
+        else {
+            row *= (d.pow(r + 1).toInt())
+            r++
+        }
+        row += c * c
+        c++
+    }
+    if (row < d.pow(n)- 1) result = (row % 10).toInt()
+    else result = (row / 10 % 10).toInt()
+    return result
+}
 
 /**
  * Сложная (5 баллов)
