@@ -276,20 +276,17 @@ fun cos(x: Double, eps: Double): Double = TODO()
  */
 fun squareSequenceDigit(n: Int): Int {
     var num = n
-    var row = 0L
+    var row = 0.0
     var result = 0
     val d = 10.0
     var c = 1.0
     var r = 1.0
     while (row < d.pow(num - 1)) {
-        if ((c * c) in d.pow(r - 1)..(d.pow(r) - 1)) row *= (d.pow(r)).toLong()
+        if ((c * c) in d.pow(r - 1)..(d.pow(r) - 1)) row = row * d.pow(r) + (c * c++)
         else {
-            row *= (d.pow(r + 1)).toLong()
-            r++
+            row = row * d.pow(++r) + (c * c++)
         }
-        row += (c * c).toLong()
-        c++
-        if (row > 100000000000000) {
+        if (row > d.pow(14)) {
             row %= 100
             num = n - 14
         }
