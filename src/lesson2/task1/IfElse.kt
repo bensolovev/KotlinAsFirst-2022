@@ -158,8 +158,8 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val mn = if ((a < b) and (a < c)) a else if ((c < a) and (c < b)) c else b
-    val mx = if ((a > b) and (a > c)) a else if ((c > a) and (c > b)) c else b
+    val mn = if ((a <= b) and (a <= c)) a else if ((c <= a) and (c <= b)) c else b
+    val mx = if ((a >= b) and (a >= c)) a else if ((c >= a) and (c >= b)) c else b
     val sr = a + b + c - mn - mx
     if (mx >= mn + sr) return -1
     return when {

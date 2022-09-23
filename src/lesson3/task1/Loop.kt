@@ -107,7 +107,7 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var d = n
-    for (i in 2..n / 2) {
+    for (i in 2..sqrt(n.toDouble()).toInt() + 5) {
         if (n % i == 0 && i < d) d = i
     }
     return d
@@ -142,7 +142,20 @@ fun maxDivisor(n: Int): Int {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var result = 0
+    var n = x
+    while (n != 1) {
+        if (n % 2 == 0) {
+            result++
+            n /= 2
+        } else {
+            result++
+            n = 3 * n + 1
+        }
+    }
+    return result
+}
 
 /**
  * Средняя (3 балла)
@@ -170,8 +183,11 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var c = 0
-    for (i in 2..m * n) {
-        if (m % i == 0 && n % i == 0) c++
+    for (i in 2..min(m, n)) {
+        if (m % i == 0 && n % i == 0) {
+            c++
+            break
+        }
     }
     return c == 0
 }
@@ -275,25 +291,23 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var num = n
-    var row = 0.0
-    var result = 0
+    var c = 0
+    var f = 0
+    var cnum = 0
     val d = 10.0
-    var c = 1.0
-    var r = 1.0
-    while (row < d.pow(num - 1)) {
-        if ((c * c) in d.pow(r - 1)..(d.pow(r) - 1)) row = row * d.pow(r) + (c * c++)
-        else {
-            row = row * d.pow(++r) + (c * c++)
+    for (i in 1..10000000) {
+        cnum = digitNumber(i * i)
+        c += cnum
+        for (j in 0 until c) {
+            if (n == c - j) {
+                return i * i % d.pow(j + 1).toInt() / d.pow(j).toInt()
+                f = 1
+                break
+            }
         }
-        if (row > d.pow(14)) {
-            row %= 100
-            num = n - 14
-        }
+        if (f == 1) break
     }
-    if (row < d.pow(n) - 1) result = ((row % 10).toInt())
-    else result = ((row / 10 % 10).toInt())
-    return result
+    return 0
 }
 
 /**
