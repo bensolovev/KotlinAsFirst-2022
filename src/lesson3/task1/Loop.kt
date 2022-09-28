@@ -163,16 +163,7 @@ fun collatzSteps(x: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var result = 0
-    for (i in 1..m * n) {
-        if (i % m == 0 && i % n == 0) {
-            result = i
-            break
-        }
-    }
-    return result
-}
+fun lcm(m: Int, n: Int): Int = TODO()
 
 /**
  * Средняя (3 балла)
@@ -290,25 +281,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int {
-    var c = 0
-    var f = 0
-    var cnum = 0
-    val d = 10.0
-    for (i in 1..10000000) {
-        cnum = digitNumber(i * i)
-        c += cnum
-        for (j in 0 until c) {
-            if (n == c - j) {
-                return i * i % d.pow(j + 1).toInt() / d.pow(j).toInt()
-                f = 1
-                break
-            }
-        }
-        if (f == 1) break
-    }
-    return 0
-}
+fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
  * Сложная (5 баллов)
