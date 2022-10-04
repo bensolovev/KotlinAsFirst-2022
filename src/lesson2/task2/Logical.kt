@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("UNUSED_PARAMETER", "UNUSED_EXPRESSION")
 
 package lesson2.task2
 
@@ -29,8 +29,8 @@ fun isNumberHappy(number: Int): Boolean =
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = (x1 == x2) or (y1 == y2) or
-        (abs(x1 - x2) == abs(y1 - y2))
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
+    x1 == x2 || y1 == y2 || abs(x1 - x2) == abs(y1 - y2)
 
 
 /**
@@ -39,25 +39,24 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = (x1 == x2) or 
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int {
-    return if ((month == 2) and (year % 100 == 0) and (year % 400 != 0)) 28
-    else if ((month == 2) and (year % 4 == 0)) 29
-    else when (month) {
-        1 -> 31
-        2 -> 28
-        3 -> 31
-        4 -> 30
-        5 -> 31
-        6 -> 30
-        7 -> 31
-        8 -> 31
-        9 -> 30
-        10 -> 31
-        11 -> 30
-        12 -> 31
+fun daysInMonth(month: Int, year: Int): Int =
+    when {
+        month == 2 && year % 100 == 0 && year % 400 != 0 -> 28
+        month == 2 && year % 4 == 0 -> 29
+        month == 1 -> 31
+        month == 2 -> 28
+        month == 3 -> 31
+        month == 4 -> 30
+        month == 5 -> 31
+        month == 6 -> 30
+        month == 7 -> 31
+        month == 8 -> 31
+        month == 9 -> 30
+        month == 10 -> 31
+        month == 11 -> 30
+        month == 12 -> 31
         else -> 0
     }
-}
 
 /**
  * Простая (2 балла)
