@@ -119,11 +119,11 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var d = 0
-    for (i in 1..n / 2) {
-        if (n % i == 0) d = i
+    var result = 1
+    for (i in 2..sqrt(n.toDouble()).toInt() + 5) {
+        if (n % i == 0 && result < i) result = n / i
     }
-    return d
+    return result
 }
 
 /**
@@ -172,14 +172,13 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var c = 0
-    for (i in 2..min(m, n)) {
-        if (m % i == 0 && n % i == 0) {
-            c++
-            break
-        }
+    var f = m
+    var s = n
+    while (f * s != 0) {
+        if (f > s) f %= s
+        else s %= f
     }
-    return c == 0
+    return f + s == 1
 }
 
 /**
@@ -220,33 +219,17 @@ fun isPalindrome(n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var ch1 = 0
-    var ch2 = 0
-    var ch3 = 0
-    var ch4 = 0
-    var ch5 = 0
-    var ch6 = 0
-    var ch7 = 0
-    var ch8 = 0
-    var ch9 = 0
-    var ch0 = 0
     var numb = n
+    var result = 0
+    val last = n % 10
     while (numb > 0) {
-        when (numb % 10) {
-            1 -> ch1 = 1
-            2 -> ch2 = 1
-            3 -> ch3 = 1
-            4 -> ch4 = 1
-            5 -> ch5 = 1
-            6 -> ch6 = 1
-            7 -> ch7 = 1
-            8 -> ch8 = 1
-            9 -> ch9 = 1
-            0 -> ch0 = 1
+        if (last != numb % 10) {
+            result++
+            break
         }
         numb /= 10
     }
-    return ch1 + ch2 + ch3 + ch4 + ch5 + ch6 + ch7 + ch8 + ch9 + ch0 > 1
+    return result > 0
 }
 
 /**
