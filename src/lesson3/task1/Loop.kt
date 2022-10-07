@@ -106,11 +106,10 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var d = n
-    for (i in 2..sqrt(n.toDouble()).toInt() + 5) {
-        if (n % i == 0 && i < d) d = i
+    for (i in 2..sqrt(n.toDouble()).toInt()) {
+        if (n % i == 0) return i
     }
-    return d
+    return n
 }
 
 /**
@@ -120,7 +119,7 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var result = 1
-    for (i in 2..sqrt(n.toDouble()).toInt() + 5) {
+    for (i in 2..sqrt(n.toDouble()).toInt()) {
         if (n % i == 0 && result < i) result = n / i
     }
     return result
@@ -220,16 +219,14 @@ fun isPalindrome(n: Int): Boolean = TODO()
  */
 fun hasDifferentDigits(n: Int): Boolean {
     var numb = n
-    var result = 0
     val last = n % 10
     while (numb > 0) {
         if (last != numb % 10) {
-            result++
-            break
+            return true
         }
         numb /= 10
     }
-    return result > 0
+    return false
 }
 
 /**
