@@ -119,8 +119,8 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var result = 1
-    for (i in 2..sqrt(n.toDouble()).toInt()) {
-        if (n % i == 0 && result < i) result = n / i
+    for (i in sqrt(n.toDouble()).toInt() downTo 2) {
+        if (n % i == 0 && result < n / i) result = n / i
     }
     return result
 }
