@@ -279,7 +279,7 @@ fun convertToString(n: Int, base: Int): String {
         result.add(0, s[x % base])
         x /= base
     }
-    return result.joinToString(separator = "")
+    return if (n == 0) '0'.toString() else result.joinToString(separator = "")
 }
 
 /**
