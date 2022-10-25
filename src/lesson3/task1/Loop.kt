@@ -118,11 +118,11 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var result = 1
-    for (i in n / 2 downTo 2) {
-        if (n % i == 0) return i
+    for (i in 2..sqrt(n.toDouble()).toInt()) {
+        return if (n % i == 0) n / i
+        else continue
     }
-    return result
+    return 1
 }
 
 /**
