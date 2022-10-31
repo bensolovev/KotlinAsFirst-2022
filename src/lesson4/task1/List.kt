@@ -5,6 +5,7 @@ package lesson4.task1
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
+import lesson3.task1.minDivisor
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -123,26 +124,14 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    var result = 0.0
-    for (i in v) {
-        result += sqr(i)
-    }
-    return sqrt(kotlin.math.abs(result))
-}
+fun abs(v: List<Double>): Double = sqrt((v.map { it * it }).sum())
 
 /**
  * Простая (2 балла)
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    var summ = 0.0
-    for (i in list) {
-        summ += i
-    }
-    return if (list.isEmpty()) 0.0 else summ / list.size
-}
+fun mean(list: List<Double>): Double = if (list.isEmpty()) 0.0 else list.sum() / list.size
 
 /**
  * Средняя (3 балла)
@@ -154,11 +143,7 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     val sr = mean(list)
-    var t = 0.0
-    for ((index, element) in list.withIndex()) {
-        t = element - sr
-        list[index] = t
-    }
+    for ((index, element) in list.withIndex()) list[index] -= sr
     return list
 }
 
@@ -169,13 +154,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int {
-    var result = 0
-    for (i in 0 until a.size) {
-        result += a[i] * b[i]
-    }
-    return result
-}
+fun times(a: List<Int>, b: List<Int>): Int =
+    (a.mapIndexed { index, it -> it * b[index] }).sum()
 
 /**
  * Средняя (3 балла)
@@ -185,13 +165,8 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int {
-    var result = 0
-    for (i in 0 until p.size) {
-        result += p[i] * (x.toDouble()).pow(i).toInt()
-    }
-    return result
-}
+fun polynom(p: List<Int>, x: Int): Int =
+    (p.mapIndexed { index, it -> it * (x.toDouble()).pow(index).toInt() }).sum()
 
 /**
  * Средняя (3 балла)
@@ -222,15 +197,10 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
 fun factorize(n: Int): List<Int> {
     var result = listOf<Int>()
     var x = n
-    var lastd = 1
     while (x > 1) {
-        for (i in lastd..x) {
-            if (isPrime(i) && x % i == 0) {
-                result += i
-                x /= i
-                lastd = i
-                break
-            }
+        if (isPrime(minDivisor(x))) {
+            result += minDivisor(x)
+            x /= minDivisor(x)
         }
     }
     return result.sorted()
