@@ -145,13 +145,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяющихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    var result = setOf<String>()
-    for(name in a) {
-        if (name in b) result += name
-    }
-    return result.toList()
-}
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.intersect(b.toSet()).toList()
 
 /**
  * Средняя (3 балла)
@@ -185,11 +179,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
     if (stockPrices.isEmpty()) return mapOf()
     var result = mapOf<String, Double>()
-    var inter = mutableMapOf<String, List<Double>>()
-    for ((acc, price) in stockPrices) {
-        if (!inter.containsKey(acc)) inter += Pair(acc, listOf(price))
-        else inter[acc] = inter[acc]!! + price
-    }
+    var inter = stockPrices.groupBy({ it.first }) { it.second }
     for ((acc, price) in inter) {
         result += Pair(acc, price.sum() / price.size)
     }
@@ -223,12 +213,9 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    if (chars.isEmpty()) return false
+    if (chars.isEmpty() && word.isNotEmpty()) return false
     var c = 0
-    var ch = setOf<Char>()
-    for (i in word) {
-        ch += i
-    }
+    var ch = word.toCharArray().toSet()
     for (i in chars) {
         if (ch.contains(i)) c++
     }
@@ -253,12 +240,10 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
     for (i in list) {
         if (i in inter) inter[i] = inter[i]!! + 1
         else {
-            inter += Pair(i, 1)
+            inter += i to 1
         }
     }
-    for ((ch, num) in inter) {
-        if (num > 1) result += Pair(ch, num)
-    }
+    result = inter.filter { (key, value) -> value > 1 }
     return result
 }
 

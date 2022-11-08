@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +76,29 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val date = (str.split(" ")).toMutableList()
+    if (date.size != 3) return ""
+    when (date[1]) {
+        "января" -> date[1] = "1"
+        "февраля" -> date[1] = "2"
+        "марта" -> date[1] = "3"
+        "апреля" -> date[1] = "4"
+        "мая" -> date[1] = "5"
+        "июня" -> date[1] = "6"
+        "июля" -> date[1] = "7"
+        "августа" -> date[1] = "8"
+        "сентября" -> date[1] = "9"
+        "октября" -> date[1] = "10"
+        "ноября" -> date[1] = "11"
+        "декабря" -> date[1] = "12"
+        else -> return ""
+    }
+    if (daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) {
+        return ""
+    }
+    return String.format("%02d.%02d.%d", date[0].toInt(), date[1].toInt(), date[2].toInt())
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +110,30 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val date = (digital.split(".")).toMutableList()
+    val r = Regex("\\D+")
+    if (date.size != 3 ||
+        r.matches(date[0]) || r.matches(date[1]) || r.matches(date[2]) ||
+        daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
+
+    when (date[1]) {
+        "01" -> date[1] = "января"
+        "02" -> date[1] = "февраля"
+        "03" -> date[1] = "марта"
+        "04" -> date[1] = "апреля"
+        "05" -> date[1] = "мая"
+        "06" -> date[1] = "июня"
+        "07" -> date[1] = "июля"
+        "08" -> date[1] = "августа"
+        "09" -> date[1] = "сентября"
+        "10" -> date[1] = "октября"
+        "11" -> date[1] = "ноября"
+        "12" -> date[1] = "декабря"
+        else -> return "blat"
+    }
+    return String.format("%d %s %d", date[0].toInt(), date[1], date[2].toInt())
+}
 
 /**
  * Средняя (4 балла)

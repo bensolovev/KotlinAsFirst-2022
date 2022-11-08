@@ -155,7 +155,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int =
-    (a.mapIndexed { index, it -> it * b[index] }).sum()
+    a.mapIndexed { index, it -> it * b[index] }.sum()
 
 /**
  * Средняя (3 балла)
@@ -166,7 +166,7 @@ fun times(a: List<Int>, b: List<Int>): Int =
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int =
-    (p.mapIndexed { index, it -> it * (x.toDouble()).pow(index).toInt() }).sum()
+    p.mapIndexed { index, it -> it * (x.toDouble()).pow(index).toInt() }.sum()
 
 /**
  * Средняя (3 балла)
@@ -179,10 +179,8 @@ fun polynom(p: List<Int>, x: Int): Int =
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    var sm = 0
-    for ((index, element) in list.withIndex()) {
-        sm += element
-        list[index] = sm
+    for (i in 1 until list.size) {
+        list[i] += list[i - 1]
     }
     return list
 }
@@ -249,7 +247,7 @@ fun convertToString(n: Int, base: Int): String {
         result.add(0, s[x % base])
         x /= base
     }
-    return if (n == 0) '0'.toString() else result.joinToString(separator = "")
+    return if (n == 0) "0" else result.joinToString(separator = "")
 }
 
 /**
