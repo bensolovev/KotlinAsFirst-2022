@@ -319,7 +319,7 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     while (true) {
         var c = 0
         for (i in list[c + 1] until list.size) {
-            if (list[c] + list[i] == number) {
+            if (list[c] + list[i] == number && c != i) {
                 return Pair(c, i)
                 break
             }
