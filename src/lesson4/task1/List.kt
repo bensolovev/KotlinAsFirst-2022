@@ -278,16 +278,13 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var s = mutableListOf<Char>()
     var result = 0
-    for (i in '0'..'9') {
-        s.add(i)
-    }
-    for (i in 'a'..'z') {
-        s.add(i)
+    fun charToInt(i: Char): Int = when (i) {
+        in '0'..'9' -> i - '0'
+        else -> i - 'a' + 10
     }
     for ((index, element) in str.withIndex()) {
-        result += s.indexOf(element) * base.toDouble().pow(str.length - 1 - index).toInt()
+        result += charToInt(element) * base.toDouble().pow(str.length - 1 - index).toInt()
     }
     return result
 }
