@@ -114,7 +114,7 @@ fun dateDigitToStr(digital: String): String {
     val date = (digital.split(".")).toMutableList()
     val r = Regex("\\D+")
     if (date.size != 3 ||
-        r.matches(date[0]) || r.matches(date[1]) || r.matches(date[2]) ||
+        r.containsMatchIn(date[0]) || r.containsMatchIn(date[1]) || r.containsMatchIn(date[2]) ||
         daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
 
     when (date[1]) {
