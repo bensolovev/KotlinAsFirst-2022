@@ -223,17 +223,13 @@ fun firstDuplicateIndex(str: String): Int = TODO()
 fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
     var pricelist = description.split("; ")
-    val map = mutableMapOf<String, Double>()
     var mx = 0.0
     var result = ""
     for (np in pricelist) {
-        map += np.split(" ")[0] to np.split(" ")[1].toDouble()
         if (np.split(" ")[1].toDouble() < 0) return ""
-    }
-    for ((name, price) in map) {
-        if (price > mx) {
-            mx = price
-            result = name
+        if (np.split(" ")[1].toDouble() > mx) {
+            mx = np.split(" ")[1].toDouble()
+            result = np.split(" ")[0]
         }
     }
     return result
