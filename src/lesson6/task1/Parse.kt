@@ -223,7 +223,7 @@ fun firstDuplicateIndex(str: String): Int = TODO()
 fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
     var pricelist = description.split("; ")
-    var mx = 0.0
+    var mx = -1.0
     var result = ""
     for (np in pricelist) {
         if (np.split(" ")[1].toDouble() < 0) return ""
