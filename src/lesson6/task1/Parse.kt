@@ -79,19 +79,19 @@ fun main() {
 fun dateStrToDigit(str: String): String {
     val date = (str.split(" ")).toMutableList()
     if (date.size != 3) return ""
-    when (date[1]) {
-        "января" -> date[1] = "1"
-        "февраля" -> date[1] = "2"
-        "марта" -> date[1] = "3"
-        "апреля" -> date[1] = "4"
-        "мая" -> date[1] = "5"
-        "июня" -> date[1] = "6"
-        "июля" -> date[1] = "7"
-        "августа" -> date[1] = "8"
-        "сентября" -> date[1] = "9"
-        "октября" -> date[1] = "10"
-        "ноября" -> date[1] = "11"
-        "декабря" -> date[1] = "12"
+    date[1] = when (date[1]) {
+        "января" -> "1"
+        "февраля" -> "2"
+        "марта" -> "3"
+        "апреля" -> "4"
+        "мая" -> "5"
+        "июня" -> "6"
+        "июля" -> "7"
+        "августа" -> "8"
+        "сентября" -> "9"
+        "октября" -> "10"
+        "ноября" -> "11"
+        "декабря" -> "12"
         else -> return ""
     }
     if (daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) {
@@ -116,21 +116,20 @@ fun dateDigitToStr(digital: String): String {
     if (date.size != 3 ||
         r.containsMatchIn(date[0]) || r.containsMatchIn(date[1]) || r.containsMatchIn(date[2]) ||
         daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
-
-    when (date[1]) {
-        "01" -> date[1] = "января"
-        "02" -> date[1] = "февраля"
-        "03" -> date[1] = "марта"
-        "04" -> date[1] = "апреля"
-        "05" -> date[1] = "мая"
-        "06" -> date[1] = "июня"
-        "07" -> date[1] = "июля"
-        "08" -> date[1] = "августа"
-        "09" -> date[1] = "сентября"
-        "10" -> date[1] = "октября"
-        "11" -> date[1] = "ноября"
-        "12" -> date[1] = "декабря"
-        else -> return "blat"
+    date[1] = when (date[1]) {
+        "01" -> "января"
+        "02" -> "февраля"
+        "03" -> "марта"
+        "04" -> "апреля"
+        "05" -> "мая"
+        "06" -> "июня"
+        "07" -> "июля"
+        "08" -> "августа"
+        "09" -> "сентября"
+        "10" -> "октября"
+        "11" -> "ноября"
+        "12" -> "декабря"
+        else -> return ""
     }
     return String.format("%d %s %d", date[0].toInt(), date[1], date[2].toInt())
 }
@@ -164,7 +163,7 @@ fun flattenPhoneNumber(phone: String): String = TODO()
 fun bestLongJump(jumps: String): Int {
     val jump = (jumps.split(" ")).toMutableList()
     val nums = mutableListOf<Int>()
-    var symb = setOf("-", "%")
+    var symb = listOf("-", "%")
     val r = Regex("\\d+")
     for (i in jump) {
         if (r.containsMatchIn(i)) nums.add(i.toInt())

@@ -2,8 +2,6 @@
 
 package lesson5.task1
 
-import java.util.DoubleSummaryStatistics
-
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -178,12 +176,8 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
     if (stockPrices.isEmpty()) return mapOf()
-    var result = mapOf<String, Double>()
     var inter = stockPrices.groupBy({ it.first }) { it.second }
-    for ((acc, price) in inter) {
-        result += Pair(acc, price.sum() / price.size)
-    }
-    return result
+    return inter.mapValues { it.value.sum() / it.value.size }
 }
 
 /**

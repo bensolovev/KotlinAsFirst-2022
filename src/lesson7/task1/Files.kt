@@ -87,7 +87,20 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    var map = mutableMapOf<String, Int>()
+    var list = listOf<String>()
+    for (i in substrings) {
+        map += i to 0
+    }
+    for (line in File(inputName).readLines()) {
+        for (str in substrings) {
+            list = line.split(str, ignoreCase = true)
+            map[str] = map[str]!! + (list.size - 1)
+        }
+    }
+    return map
+}
 
 
 /**
@@ -125,7 +138,17 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var mx = -1
+    for (i in File(inputName).readLines()) {
+        if (i.trim().length > mx) mx = i.length
+    }
+    for (i in File(inputName).readLines()) {
+        writer.write(" ".repeat((mx - i.trim().length) / 2))
+        writer.write(i.trim())
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
@@ -251,9 +274,7 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     var list = mutableListOf<String>()
     for (line in File(inputName).readLines()) {
         var set = setOf<Char>()
-        for (i in line) {
-            set += i.uppercaseChar()
-        }
+        set = line.lowercase().toSet()
         if (set.size == line.length && line.length >= mx) {
             list += line
             mx = line.length
