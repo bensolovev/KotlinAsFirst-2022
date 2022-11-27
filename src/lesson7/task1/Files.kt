@@ -88,18 +88,7 @@ fun deleteMarked(inputName: String, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
-    var map = mutableMapOf<String, Int>()
-    var list = listOf<String>()
-    for (i in substrings) {
-        map += i to 0
-    }
-    for (line in File(inputName).readLines()) {
-        for (str in substrings) {
-            list = line.split(str, ignoreCase = true)
-            map[str] = map[str]!! + (list.size - 1)
-        }
-    }
-    return map
+    TODO()
 }
 
 
@@ -141,7 +130,7 @@ fun centerFile(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     var mx = -1
     for (i in File(inputName).readLines()) {
-        if (i.trim().length > mx) mx = i.length
+        if (i.trim().length > mx) mx = i.trim().length
     }
     for (i in File(inputName).readLines()) {
         writer.write(" ".repeat((mx - i.trim().length) / 2))
