@@ -221,7 +221,7 @@ fun firstDuplicateIndex(str: String): Int = TODO()
 fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
     for (i in description.split("; ")){
-        if (!Regex("""(([А-я]|[A-z])+ \d+(\.\d+)*)""").matches(i)) return ""
+        if (!Regex("""(\S+ \d+(\.\d+)*)""").matches(i)) return ""
     }
     var pricelist = description.split("; ")
     var mx = -1.0
