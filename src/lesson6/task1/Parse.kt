@@ -112,10 +112,9 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val date = (digital.split(".")).toMutableList()
-    val r = Regex("\\D+")
-    if (date.size != 3 ||
-        r.containsMatchIn(date[0]) || r.containsMatchIn(date[1]) || r.containsMatchIn(date[2]) ||
-        daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
+    if (!Regex("""\d\d.\d\d.\d{4}""").matches(digital) ||
+        daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()
+    ) return ""
     date[1] = when (date[1]) {
         "01" -> "января"
         "02" -> "февраля"
@@ -161,12 +160,12 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val jump = (jumps.split(" ")).toMutableList()
-    val nums = mutableListOf<Int>()
+    val jump = jumps.split(" ").toMutableList()
+    var nums = listOf<Int>()
     var symb = listOf("-", "%")
     val r = Regex("\\d+")
     for (i in jump) {
-        if (r.containsMatchIn(i)) nums.add(i.toInt())
+        if (r.containsMatchIn(i)) nums += (i.toInt())
         else if (!symb.contains(i)) return -1
     }
     if (nums.isEmpty()) return -1
@@ -221,6 +220,9 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  */
 fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
+    for (i in description.split("; ")){
+        if (!Regex("""([А-я]+ \d+(.\d)*)""").matches(i)) return ""
+    }
     var pricelist = description.split("; ")
     var mx = -1.0
     var result = ""

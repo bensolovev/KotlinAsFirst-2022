@@ -176,8 +176,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
     if (stockPrices.isEmpty()) return mapOf()
-    var inter = stockPrices.groupBy({ it.first }) { it.second }
-    return inter.mapValues { it.value.sum() / it.value.size }
+    return stockPrices.groupBy({ it.first }) { it.second }.mapValues { it.value.sum() / it.value.size }
 }
 
 /**
