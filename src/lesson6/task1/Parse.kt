@@ -112,7 +112,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val date = (digital.split(".")).toMutableList()
-    if (!Regex("""\d\d.\d\d.\d{4}""").matches(digital) ||
+    if (!Regex("""\d{1,2}.\d{1,2}.\d{1,4}""").matches(digital) ||
         daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()
     ) return ""
     date[1] = when (date[1]) {
@@ -221,7 +221,7 @@ fun firstDuplicateIndex(str: String): Int = TODO()
 fun mostExpensive(description: String): String {
     if (description.isEmpty()) return ""
     for (i in description.split("; ")){
-        if (!Regex("""([А-я]+ \d+(.\d)*)""").matches(i)) return ""
+        if (!Regex("""(([А-я]|[A-z])+ \d+(.\d)*)""").matches(i)) return ""
     }
     var pricelist = description.split("; ")
     var mx = -1.0
