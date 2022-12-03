@@ -301,16 +301,13 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     if (list.size < 2) return Pair(-1, -1)
-    var c = 0
-    while (true) {
-        for (i in c + 1 until list.size) {
-            if (list[c] + list[i] == number && c != i) {
-                return Pair(c, i)
-                break
-            }
-        }
-        c++
-        if (c == list.size) break
+    var result = mutableMapOf<Int, Int>()
+    var razn = 0
+    for (i in list) {
+        razn = number - i
+        if (result.containsKey(razn)) {
+            return (result[razn] to list.indexOf(i)) as Pair<Int, Int>
+        } else result[i] = list.indexOf(i)
     }
     return Pair(-1, -1)
 }
