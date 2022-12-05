@@ -160,12 +160,12 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val jump = jumps.split(" ").toMutableList()
-    var nums = listOf<Int>()
+    val jump = jumps.split(" ").toList()
+    val nums = mutableListOf<Int>()
     var symb = listOf("-", "%")
     val r = Regex("\\d+")
     for (i in jump) {
-        if (r.containsMatchIn(i)) nums += (i.toInt())
+        if (r.containsMatchIn(i)) nums.add(i.toInt())
         else if (!symb.contains(i)) return -1
     }
     if (nums.isEmpty()) return -1

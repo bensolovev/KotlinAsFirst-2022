@@ -174,10 +174,8 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    if (stockPrices.isEmpty()) return mapOf()
-    return stockPrices.groupBy({ it.first }) { it.second }.mapValues { it.value.sum() / it.value.size }
-}
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =
+    stockPrices.groupBy({ it.first }) { it.second }.mapValues { it.value.sum() / it.value.size }
 
 /**
  * Средняя (4 балла)
@@ -303,11 +301,11 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     if (list.size < 2) return Pair(-1, -1)
     var result = mutableMapOf<Int, Int>()
     var razn = 0
-    for (i in list) {
-        razn = number - i
+    for (i in list.indices) {
+        razn = number - list[i]
         if (result.containsKey(razn)) {
-            return (result[razn] to list.indexOf(i)) as Pair<Int, Int>
-        } else result[i] = list.indexOf(i)
+            return (result[razn] to i) as Pair<Int, Int>
+        } else result[list[i]] = i
     }
     return Pair(-1, -1)
 }
